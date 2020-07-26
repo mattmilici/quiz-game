@@ -1,4 +1,6 @@
  $(document).ready(function() {
+     var scoreTracker = 0;
+
      let quizquestions = [
          [
              ["question1"],
@@ -8,37 +10,42 @@
          [
              ["question2"],
              ["ttttttt", "rrsdsd", "oooooooo", "llllllll"],
-             ["answer:1"]
+             ["answer:0"]
          ],
          [
              ["question3"],
              ["qqqqqqq", "aaaaaaaaa", "qqqqqqqq", "nnnnnnnnn"],
-             ["answer:2"]
+             ["answer:0"]
          ],
          [
              ["question4"],
              ["qqqqqqq", "aaaaaaaaa", "qqqqqqqq", "nnnnnnnnn"],
-             ["answer:2"]
+             ["answer:0"]
          ],
          [
              ["question5"],
              ["qqqqqqq", "aaaaaaaaa", "qqqqqqqq", "nnnnnnnnn"],
-             ["answer:2"]
+             ["answer:0"]
          ],
      ];
 
-
+     //Starting button on home screen. This kicks off the timer and shows the first quiz question
      $("#startBtn").on("click", startQuiz)
 
+     //every time an answer is selected you will be taken to the next screen 
      $(document).on("click", ".userAnswer", nextQuestion)
-
 
      function nextQuestion() {
          $(".userAnswer").remove();
+         if (this.id === currentQuestion[2][0]) {
+             scoreTracker = scoreTracker + 1
+         }
          if (questionPlusAnswer < (quizquestions.length - 1)) {
+
              startQuiz();
          } else {
-             $("h1").text("Your final");
+             $("h1").text("Your final score was.... " + scoreTracker + "!");
+
              $(".userAnswer").remove();
          }
      }
@@ -46,13 +53,13 @@
 
 
      var questionPlusAnswer = -1
+     var currentQuestion;
 
      function startQuiz() {
-
          $(".welcome-p").remove();
          $("#startBtn").remove();
          questionPlusAnswer += 1
-         let currentQuestion = quizquestions[questionPlusAnswer]
+         currentQuestion = quizquestions[questionPlusAnswer]
          $("h1").text(currentQuestion[0]);
          for (let i = 0; i < currentQuestion[1].length; i++) {
              var pTag = $("<button>");
@@ -64,6 +71,8 @@
 
 
      };
+
+
 
 
  });
