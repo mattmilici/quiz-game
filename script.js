@@ -44,8 +44,11 @@
 
              startQuiz();
          } else {
-             $("h1").text("Your final score was.... " + scoreTracker + "!");
-
+             $("h1").text("Your got  " + scoreTracker + " out of " + quizquestions.length + " right");
+             var pQuote = $("<p>")
+             var percent = 100 * (scoreTracker / quizquestions.length)
+             pQuote.text(percent + "%")
+             $("main").append(pQuote);
              $(".userAnswer").remove();
          }
      }
