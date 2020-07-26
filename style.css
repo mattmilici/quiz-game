@@ -2,6 +2,8 @@ header {
     display: flex;
     justify-content: space-between;
     margin: 1% 2% 5% 2%;
+    color: #ffffdd;
+    font-weight: bold;
 }
 
 .main-box {

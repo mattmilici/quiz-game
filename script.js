@@ -31,6 +31,7 @@
 
      //Starting button on home screen. This kicks off the timer and shows the first quiz question
      $("#startBtn").on("click", startQuiz)
+     $("#startBtn").on("click", startTimer)
 
      //every time an answer is selected you will be taken to the next screen 
      $(document).on("click", ".userAnswer", nextQuestion)
@@ -91,6 +92,31 @@
 
      };
 
+
+
+     // time we want to countdown to
+     var startingTime = 60;
+     var timePassed = 0;
+
+     function startTimer() {
+         // Run myfunc every second
+         var myfunc = setInterval(function() {
+
+                 var timeRemaing = startingTime - timePassed;
+
+                 $('#timerCount').text(timeRemaing)
+
+                 timePassed = timePassed + 1
+                 console.log(timeRemaing)
+
+                 // Display the message when countdown is over
+                 if (timeRemaing < 0) {
+                     clearInterval(myfunc);
+                     $('#timerCount').text("")
+                 }
+             },
+             1000);
+     }
 
 
 
