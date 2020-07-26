@@ -45,6 +45,7 @@
              startQuiz();
          } else {
              $("h1").text("Your got  " + scoreTracker + " out of " + quizquestions.length + " right");
+             $("h1").css("text-align", "center");
              var pQuote = $("<p>")
              var percent = 100 * (scoreTracker / quizquestions.length)
              pQuote.text(percent + "%")
@@ -64,9 +65,10 @@
          questionPlusAnswer += 1
          currentQuestion = quizquestions[questionPlusAnswer]
          $("h1").text(currentQuestion[0]);
+         $("h1").css("text-align", "left");
          for (let i = 0; i < currentQuestion[1].length; i++) {
              var pTag = $("<button>");
-             pTag.addClass("userAnswer");
+             pTag.addClass("userAnswer btn btn-primary");
              pTag.attr("id", "answer:" + i);
              pTag.text(currentQuestion[1][i]);
              $("main").append(pTag);
