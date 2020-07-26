@@ -3,29 +3,29 @@
 
      let quizquestions = [
          [
-             ["question1"],
-             ["bbbbbbbbbbbb", "cccccccccccc", "ddddddddddd", "eeeeeeeeeeeee"],
+             ["Javascript can update and change both HTML and CSS"],
+             ["True", "False"],
              ["answer:0"]
          ],
          [
-             ["question2"],
-             ["ttttttt", "rrsdsd", "oooooooo", "llllllll"],
+             ["Javascript can calculate, _______ and validate data"],
+             ["spell", "manipulate", "sing", "laugh"],
+             ["answer:1"]
+         ],
+         [
+             ["You set a variable in Javascript by using which of the following syntax"],
+             ["var", "parse", "function", "()"],
              ["answer:0"]
          ],
          [
-             ["question3"],
-             ["qqqqqqq", "aaaaaaaaa", "qqqqqqqq", "nnnnnnnnn"],
+             ["JQuery is a library built on Javascript"],
+             ["True", "False"],
              ["answer:0"]
          ],
          [
-             ["question4"],
-             ["qqqqqqq", "aaaaaaaaa", "qqqqqqqq", "nnnnnnnnn"],
-             ["answer:0"]
-         ],
-         [
-             ["question5"],
-             ["qqqqqqq", "aaaaaaaaa", "qqqqqqqq", "nnnnnnnnn"],
-             ["answer:0"]
+             ["How would you determine the number of items in an array?"],
+             ["array.count", "array.parse", "array.read", "array.length"],
+             ["answer:3"]
          ],
      ];
 
