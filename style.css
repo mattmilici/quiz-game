@@ -1,11 +1,24 @@
 header {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 5%;
+    margin: 1% 2% 5% 2%;
 }
 
 .main-box {
-    margin: 0 30%;
+    margin: 0 15%;
+    text-align: center;
+    border-bottom: solid thin #006a71;
+    padding-bottom: 2%;
+}
+
+.answerCheck {
+    margin: 0 15%;
+    text-align: left;
+    margin-bottom: 2%;
+}
+
+.checkAnswer {
+    margin: 0 15%;
     text-align: center;
 }
 
@@ -21,4 +34,18 @@ button {
 .userAnswer {
     display: block;
     margin-bottom: 2%;
+}
+
+.btn {
+    background-color: #006a71;
+    color: white;
+}
+
+body {
+    background-color: #006a71;
+}
+
+.container {
+    background-color: #ffffdd;
+    margin-bottom: 1%;
 }

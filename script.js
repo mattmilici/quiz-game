@@ -35,13 +35,26 @@
      //every time an answer is selected you will be taken to the next screen 
      $(document).on("click", ".userAnswer", nextQuestion)
 
+
+     var answerCheck = $("<p>")
+     answerCheck.text("")
+     answerCheck.addClass("answerCheck")
+     $(".checkAnswer").append(answerCheck);
+     $(".answerCheck").insertAfter(".checkAnswer")
+
      function nextQuestion() {
          $(".userAnswer").remove();
          if (this.id === currentQuestion[2][0]) {
              scoreTracker = scoreTracker + 1
-         }
-         if (questionPlusAnswer < (quizquestions.length - 1)) {
+             answerCheck.text("correct!")
 
+
+         } else {
+             answerCheck.text("incorrect!");
+
+         }
+
+         if (questionPlusAnswer < (quizquestions.length - 1)) {
              startQuiz();
          } else {
              $("h1").text("Your got  " + scoreTracker + " out of " + quizquestions.length + " right");
@@ -51,6 +64,7 @@
              pQuote.text(percent + "%")
              $("main").append(pQuote);
              $(".userAnswer").remove();
+             $(".answerCheck").remove();
          }
      }
 
@@ -68,7 +82,7 @@
          $("h1").css("text-align", "left");
          for (let i = 0; i < currentQuestion[1].length; i++) {
              var pTag = $("<button>");
-             pTag.addClass("userAnswer btn btn-primary");
+             pTag.addClass("userAnswer btn");
              pTag.attr("id", "answer:" + i);
              pTag.text(currentQuestion[1][i]);
              $("main").append(pTag);

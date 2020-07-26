@@ -13,20 +13,23 @@
 </head>
 
 <body>
-    <header class="">
+    <header class="header-div">
         <div class="scores-btn heading">View High Scores</div>
         <div class="timeTracker heading">
             Time: <span id="timerCount">60</span>
         </div>
     </header>
-    <main class="main-box">
-        <h1>Test your Javascript Knowledge!</h1>
-        <p class="welcome-p">Here's how it works...</p>
-        <p class="welcome-p">
-            You'll be prompted with a Javascript question with four mulitple choice answers. Click the answer you believe to be true. If you select the wrong answer you'll lose 5 seconds off your time. time starts at 60 seconds!
-        </p>
-        <button class="btn btn-primary" id="startBtn">Start Quiz!</button>
-    </main>
+    <div class="container">
+        <main class="main-box">
+            <h1>Test your Javascript Knowledge!</h1>
+            <p class="welcome-p">Here's how it works...</p>
+            <p class="welcome-p">
+                You'll be prompted with a Javascript question with four mulitple choice answers. Click the answer you believe to be true. If you select the wrong answer you'll lose 5 seconds off your time. time starts at 60 seconds!
+            </p>
+            <button class="btn btn-primary" id="startBtn">Start Quiz!</button>
+        </main>
+        <div class="checkAnswer"></div>
+    </div>
 </body>
 
 </html>
