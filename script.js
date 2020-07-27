@@ -1,4 +1,9 @@
  $(document).ready(function() {
+
+     var userProfile = {
+         username: null,
+         userScore: null,
+     }
      var scoreTracker = 0;
 
      let quizquestions = [
@@ -35,7 +40,7 @@
 
      //every time an answer is selected you will be taken to the next screen 
      $(document).on("click", ".userAnswer", nextQuestion)
-
+     $(document).on("click", ".submitBtn", submitButtonPressed)
 
      var answerCheck = $("<p>")
      answerCheck.text("")
@@ -58,17 +63,43 @@
          if (questionPlusAnswer < (quizquestions.length - 1)) {
              startQuiz();
          } else {
-             $("h1").text("Your got  " + scoreTracker + " out of " + quizquestions.length + " right");
-             $("h1").css("text-align", "center");
-             var pQuote = $("<p>")
-             var percent = 100 * (scoreTracker / quizquestions.length)
-             pQuote.text(percent + "%")
-             $("main").append(pQuote);
-             $(".userAnswer").remove();
-             $(".answerCheck").remove();
+             finalScorePage()
+             stopTimer()
          }
      }
 
+     var userInputInitials
+
+
+     function finalScorePage() {
+
+         $("h1").text("Your got  " + scoreTracker + " out of " + quizquestions.length + " right");
+         $("h1").css("text-align", "center");
+         var pQuote = $("<p>")
+         pQuote.addClass("percentRight")
+         var percent = 100 * (scoreTracker / quizquestions.length)
+         pQuote.text(percent + "%")
+         $("main").append(pQuote);
+         var label = $("<p>")
+         label.addClass("label")
+         label.text("Please enter your initals")
+         $("main").append(label);
+         var input = $("<input>")
+         input.addClass("userInitials")
+         $("main").append(input);
+         var submitbtn = $("<button>")
+         submitbtn.addClass("submitBtn")
+         submitbtn.text("Submit")
+         $("main").append(submitbtn);
+
+
+
+
+
+
+         $(".userAnswer").remove();
+         $(".answerCheck").remove();
+     }
 
 
      var questionPlusAnswer = -1
@@ -95,110 +126,62 @@
 
 
      // time we want to countdown to
-     var startingTime = 60;
+     var startingTime = 2;
      var timePassed = 0;
+     var timeFunc;
+
 
      function startTimer() {
          // Run myfunc every second
-         var myfunc = setInterval(function() {
+         timeFunc = setInterval(function() {
 
                  var timeRemaing = startingTime - timePassed;
 
                  $('#timerCount').text(timeRemaing)
 
+
                  timePassed = timePassed + 1
-                 console.log(timeRemaing)
+
 
                  // Display the message when countdown is over
                  if (timeRemaing < 0) {
-                     clearInterval(myfunc);
-                     $('#timerCount').text("")
+                     clearInterval(timeFunc);
+                     $("#timeTracker").text("")
+                     $('#timerCount').text("Times up!")
+                     finalScorePage()
                  }
              },
              1000);
      }
 
+     function stopTimer() {
+         clearTimeout(timeFunc);
+     }
+
+
+     function submitButtonPressed() {
+         var str = $("input").val();
+         console.log(str);
+
+         var tesdfst = "userProfile"
+         userProfile.username = str
+         userProfile.userScore = scoreTracker
+
+
+
+         var userProlieJSON = JSON.stringify(userProfile);
+
+         localStorage.setItem(tesdfst, userProlieJSON)
+
+         $("h1").text("High Scores!");
+         $(".percentRight").remove()
+         $(".userInitials").remove()
+         $(".label").remove()
+         $(".submitBtn").remove()
+
+
+
+     }
 
 
  });
-
-
-
-
-
-
-
- //  $(document).ready(function() {
- //     let quizquestions = [
- //         [
- //             ["question1"],
- //             ["bbbbbbbbbbbb", "cccccccccccc", "ddddddddddd", "eeeeeeeeeeeee"],
- //             ["answer:0"]
- //         ],
- //         [
- //             ["question2"],
- //             ["ttttttt", "rrsdsd", "oooooooo", "llllllll"],
- //             ["answer:1"]
- //         ],
- //         [
- //             ["question3"],
- //             ["qqqqqqq", "aaaaaaaaa", "qqqqqqqq", "nnnnnnnnn"],
- //             ["answer:1"]
- //         ],
-
- //     ];
-
- //     var questionPlusAnswer = 0
-
- //     $("#startBtn").on("click", function() {
-
- //         $(".welcome-p").remove();
- //         $("#startBtn").remove();
-
-
-
- //         let currentQuestion = quizquestions[questionPlusAnswer]
- //         let currentAnswer = currentQuestion[2]
-
-
- //         $("h1").text(currentQuestion[0]);
- //         for (i = 0; i < currentQuestion[1].length; i++) {
- //             var pTag = $("<button>");
-
- //             pTag.addClass("answer:" + currentAnswer);
- //             pTag.attr("id", "userAnswer");
- //             pTag.text(currentQuestion[1][i]);
- //             $("main").append(pTag);
- //         }
- //         var nextBtn = $("<button>");
- //         nextBtn.text("Next");
- //         $("main").append(nextBtn);
-
- //         questionPlusAnswer = questionPlusAnswer + 1
-
- //         console.log(questionPlusAnswer)
- //             //  console.log(currentQuestion[0])
- //             //  console.log(currentQuestion[1])
- //             //  console.log(currentAnswer)
- //     });
-
-
- //     //  This function tells you if your answer was the correct one
- //     let answerd = $("<p>");
- //     answerd.text("");
- //     $("main").append(answerd)
-
- //     //  This function tells you if your answer was the correct one
-
- //     $(document).on('click', '#userAnswer', function() {
-
-
- //         //  if (this.className === "correct") {
- //         //      answerd.text("Nice! That's correct!");
- //         //  } else { answerd.text("Opps! wrong answer!"); }
- //         //  console.log(this.className)
- //     })
-
-
-
- // });
