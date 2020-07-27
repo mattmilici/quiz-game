@@ -43,6 +43,10 @@ button {
     color: white;
 }
 
+.playAgain {
+    margin: auto;
+}
+
 body {
     background-color: #006a71;
 }

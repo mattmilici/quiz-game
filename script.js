@@ -1,11 +1,11 @@
  $(document).ready(function() {
 
-     var userProfile = {
-         username: null,
-         userScore: null,
-     }
-     var scoreTracker = 0;
+     // ----------------------------variables being used----------------------------
 
+     var scoreTracker = 0;
+     var currentQuestion;
+     var questionPlusAnswer = -1;
+     var timeFunc;
      let quizquestions = [
          [
              ["Javascript can update and change both HTML and CSS"],
@@ -34,29 +34,32 @@
          ],
      ];
 
+
+
+
      //Starting button on home screen. This kicks off the timer and shows the first quiz question
      $("#startBtn").on("click", startQuiz)
      $("#startBtn").on("click", startTimer)
 
+
      //every time an answer is selected you will be taken to the next screen 
      $(document).on("click", ".userAnswer", nextQuestion)
      $(document).on("click", ".submitBtn", submitButtonPressed)
+     $(document).on("click", ".playAgain", restart)
 
-     var answerCheck = $("<p>")
-     answerCheck.text("")
-     answerCheck.addClass("answerCheck")
-     $(".checkAnswer").append(answerCheck);
-     $(".answerCheck").insertAfter(".checkAnswer")
+
+     // ---------------------------- This function takes you to the next question ----------------------------
 
      function nextQuestion() {
          $(".userAnswer").remove();
+         $(".answerCheck").show();
          if (this.id === currentQuestion[2][0]) {
              scoreTracker = scoreTracker + 1
-             answerCheck.text("correct!")
+             $(".answerCheck").text("correct!")
 
 
          } else {
-             answerCheck.text("incorrect!");
+             $(".answerCheck").text("incorrect!");
 
          }
 
@@ -68,12 +71,11 @@
          }
      }
 
-     var userInputInitials
 
 
      function finalScorePage() {
 
-         $("h1").text("Your got  " + scoreTracker + " out of " + quizquestions.length + " right");
+         $("h1").text("You got  " + scoreTracker + " out of " + quizquestions.length + " correct");
          $("h1").css("text-align", "center");
          var pQuote = $("<p>")
          pQuote.addClass("percentRight")
@@ -92,22 +94,17 @@
          submitbtn.text("Submit")
          $("main").append(submitbtn);
 
-
-
-
-
-
          $(".userAnswer").remove();
-         $(".answerCheck").remove();
+         $(".answerCheck").hide();
      }
 
 
-     var questionPlusAnswer = -1
-     var currentQuestion;
-
      function startQuiz() {
-         $(".welcome-p").remove();
-         $("#startBtn").remove();
+         $(".welcome-p").hide();
+         $(".welcome-p2").hide();
+         $("#startBtn").hide();
+
+
          questionPlusAnswer += 1
          currentQuestion = quizquestions[questionPlusAnswer]
          $("h1").text(currentQuestion[0]);
@@ -124,14 +121,9 @@
      };
 
 
-
-     // time we want to countdown to
-     var startingTime = 2;
-     var timePassed = 0;
-     var timeFunc;
-
-
      function startTimer() {
+         var startingTime = 60
+         var timePassed = 0;
          // Run myfunc every second
          timeFunc = setInterval(function() {
 
@@ -163,15 +155,6 @@
          var str = $("input").val();
          console.log(str);
 
-         var tesdfst = "userProfile"
-         userProfile.username = str
-         userProfile.userScore = scoreTracker
-
-
-
-         var userProlieJSON = JSON.stringify(userProfile);
-
-         localStorage.setItem(tesdfst, userProlieJSON)
 
          $("h1").text("High Scores!");
          $(".percentRight").remove()
@@ -179,9 +162,36 @@
          $(".label").remove()
          $(".submitBtn").remove()
 
+         var user = $("<p>");
+         user.addClass("userhighscore");
+         user.text("Matt Milici - 100%");
+         $("main").append(user);
+
+         var playAgain = $("<button>");
+         playAgain.addClass("playAgain btn");
+         playAgain.text("Play Again!");
+         $("main").append(playAgain);
 
 
      }
+
+     function restart() {
+         $(".playAgain").remove()
+         $(".userhighscore").remove()
+         $("h1").text("Test your Javascript Knowledge!");
+
+         $(".welcome-p").show();
+         $(".welcome-p").text("Back for another go?!");
+         $(".welcome-p2").show();
+         $(".welcome-p2").text("You'll be prompted with a Javascript question with four mulitple choice answers. Click the answer you believe to be true. If you select the wrong answer you'll lose 5 seconds off your time. time starts at 60 seconds!");
+
+         $("#startBtn").show()
+         startingTime = 60
+         questionPlusAnswer = -1
+         scoreTracker = 0
+
+     }
+
 
 
  });
