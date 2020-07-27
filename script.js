@@ -101,6 +101,7 @@
 
 
      function startQuiz() {
+         $(".scoreboardPTags").hide()
          $(".welcome-p").hide();
          $(".welcome-p2").hide();
          $("#startBtn").hide();
@@ -156,22 +157,15 @@
      var allUsersArray = JSON.parse(localStorage.getItem('userresults')) || [];
 
      function submitButtonPressed() {
-
          var str = $("input").val();
          userScoresArray.push(str)
          userScoresArray.push(scoreTracker)
 
 
          allUsersArray.push(userScoresArray)
-
-
          localStorage.setItem("userresults", JSON.stringify(allUsersArray));
 
 
-         var getData = localStorage.getItem("userresults")
-         var dataParsed = JSON.parse(getData)
-
-         console.log(dataParsed)
 
          $("h1").text("High Scores!");
          $("h1").css("text-align", "center");
@@ -188,19 +182,11 @@
          $(".welcome-p").hide()
          $(".welcome-p2").hide()
 
-
-
-
-
-
          $("h1").text("High Scores!");
          $("h1").css("text-align", "center");
 
-         var userLine = $("<p>");
-         userLine.addClass("userhighscore");
-         userLine.text("matt scored " +
-             10 + " points!");
-         $("main").append(userLine);
+         scoreBoard()
+         stopTimer()
 
          var playAgain = $("<button>");
          playAgain.addClass("playAgain btn");
@@ -214,7 +200,7 @@
          $(".playAgain").remove()
          $(".userhighscore").remove()
          $("h1").text("Test your Javascript Knowledge!");
-
+         $(".scoreboardPTags").hide()
          $(".welcome-p").show();
          $(".welcome-p").text("Back for another go?!");
          $(".welcome-p2").show();
@@ -227,5 +213,24 @@
 
      }
 
+
+     function scoreBoard() {
+         $(".scoreboardPTags").hide()
+
+         var getData = localStorage.getItem("userresults")
+         var dataParsed = JSON.parse(getData)
+         console.log(dataParsed)
+
+         dataParsed.sort(function(a, b) {
+             return b[1] - a[1];
+         });
+
+         for (let r = 0; r < dataParsed.length; r++) {
+             var pHeader = $("<p>")
+             pHeader.addClass("scoreboardPTags")
+             pHeader.text("user: " + dataParsed[r][0] + " Scored: " + dataParsed[r][1])
+             $("main").append(pHeader)
+         }
+     }
 
  });
