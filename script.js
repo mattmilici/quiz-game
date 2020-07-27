@@ -40,7 +40,7 @@
      //Starting button on home screen. This kicks off the timer and shows the first quiz question
      $("#startBtn").on("click", startQuiz)
      $("#startBtn").on("click", startTimer)
-
+     $(".scores-btn").on("click", submitButtonPressed)
 
      //every time an answer is selected you will be taken to the next screen 
      $(document).on("click", ".userAnswer", nextQuestion)
@@ -152,15 +152,27 @@
 
 
      function submitButtonPressed() {
+         stopTimer()
          var str = $("input").val();
          console.log(str);
 
-
          $("h1").text("High Scores!");
+         $("h1").css("text-align", "center");
+
+         $(".userhighscore").remove()
+         $(".userInitials").remove()
+         $(".playAgain").remove()
+
+
+         $("#startBtn").hide()
          $(".percentRight").remove()
          $(".userInitials").remove()
          $(".label").remove()
          $(".submitBtn").remove()
+         $(".userAnswer").remove()
+         $(".answerCheck").hide()
+         $(".welcome-p").hide()
+         $(".welcome-p2").hide()
 
          var user = $("<p>");
          user.addClass("userhighscore");
