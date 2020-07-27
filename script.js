@@ -34,9 +34,6 @@
          ],
      ];
 
-
-
-
      //Starting button on home screen. This kicks off the timer and shows the first quiz question
      $("#startBtn").on("click", startQuiz)
      $("#startBtn").on("click", startTimer)
@@ -82,13 +79,17 @@
          var percent = 100 * (scoreTracker / quizquestions.length)
          pQuote.text(percent + "%")
          $("main").append(pQuote);
+
          var label = $("<p>")
          label.addClass("label")
          label.text("Please enter your initals")
          $("main").append(label);
+
          var input = $("<input>")
+         input.attr("id", "input")
          input.addClass("userInitials")
          $("main").append(input);
+
          var submitbtn = $("<button>")
          submitbtn.addClass("submitBtn")
          submitbtn.text("Submit")
@@ -151,19 +152,32 @@
      }
 
 
+     var userScoresArray = [];
+     var allUsersArray = JSON.parse(localStorage.getItem('userresults')) || [];
+
      function submitButtonPressed() {
-         stopTimer()
+
          var str = $("input").val();
-         console.log(str);
+         userScoresArray.push(str)
+         userScoresArray.push(scoreTracker)
+
+
+         allUsersArray.push(userScoresArray)
+
+
+         localStorage.setItem("userresults", JSON.stringify(allUsersArray));
+
+
+         var getData = localStorage.getItem("userresults")
+         var dataParsed = JSON.parse(getData)
+
+         console.log(dataParsed)
 
          $("h1").text("High Scores!");
          $("h1").css("text-align", "center");
-
          $(".userhighscore").remove()
          $(".userInitials").remove()
          $(".playAgain").remove()
-
-
          $("#startBtn").hide()
          $(".percentRight").remove()
          $(".userInitials").remove()
@@ -174,10 +188,19 @@
          $(".welcome-p").hide()
          $(".welcome-p2").hide()
 
-         var user = $("<p>");
-         user.addClass("userhighscore");
-         user.text("Matt Milici - 100%");
-         $("main").append(user);
+
+
+
+
+
+         $("h1").text("High Scores!");
+         $("h1").css("text-align", "center");
+
+         var userLine = $("<p>");
+         userLine.addClass("userhighscore");
+         userLine.text("matt scored " +
+             10 + " points!");
+         $("main").append(userLine);
 
          var playAgain = $("<button>");
          playAgain.addClass("playAgain btn");
@@ -203,7 +226,6 @@
          scoreTracker = 0
 
      }
-
 
 
  });
