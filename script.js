@@ -37,7 +37,7 @@
      //Starting button on home screen. This kicks off the timer and shows the first quiz question
      $("#startBtn").on("click", startQuiz)
      $("#startBtn").on("click", startTimer)
-     $(".scores-btn").on("click", submitButtonPressed)
+     $(".scores-btn").on("click", submitButtonPressed2)
 
      //every time an answer is selected you will be taken to the next screen 
      $(document).on("click", ".userAnswer", nextQuestion)
@@ -72,6 +72,9 @@
 
      function finalScorePage() {
 
+
+         $(".userAnswer").remove();
+         $(".answerCheck").hide();
          $("h1").text("You got  " + scoreTracker + " out of " + quizquestions.length + " correct");
          $("h1").css("text-align", "center");
          var pQuote = $("<p>")
@@ -95,8 +98,6 @@
          submitbtn.text("Submit")
          $("main").append(submitbtn);
 
-         $(".userAnswer").remove();
-         $(".answerCheck").hide();
      }
 
 
@@ -153,19 +154,46 @@
      }
 
 
-     var userScoresArray = [];
      var allUsersArray = JSON.parse(localStorage.getItem('userresults')) || [];
+     var counter = 0
 
      function submitButtonPressed() {
+
+
+         var userScoresArray = [];
          var str = $("input").val();
+
+
          userScoresArray.push(str)
          userScoresArray.push(scoreTracker)
-
-
          allUsersArray.push(userScoresArray)
-         localStorage.setItem("userresults", JSON.stringify(allUsersArray));
 
-         scoreBoard()
+
+
+         localStorage.setItem("userresults", JSON.stringify(allUsersArray));
+         counter = counter + 1;
+
+         $(".highScore1").show()
+         $(".highScore2").show()
+         $(".highScore3").show()
+
+         $(".scoreboardPTags").hide();
+
+         var getData = localStorage.getItem("userresults")
+         var dataParsed = JSON.parse(getData)
+         console.log(dataParsed)
+
+         dataParsed.sort(function(a, b) {
+             return b[1] - a[1];
+         });
+
+
+         $(".highScore1").text("User: " + dataParsed[0][0] + " Scored: " + dataParsed[0][1])
+         $(".highScore2").text("User: " + dataParsed[1][0] + " Scored: " + dataParsed[1][1])
+         $(".highScore3").text("User: " + dataParsed[2][0] + " Scored: " + dataParsed[2][1])
+
+
+
          $(".highScore1").show()
          $(".highScore2").show()
          $(".highScore3").show()
@@ -193,9 +221,69 @@
          playAgain.addClass("playAgain btn");
          playAgain.text("Play Again!");
          $("main").append(playAgain);
-
-
      }
+
+
+
+     function submitButtonPressed2() {
+
+
+         $(".highScore1").show()
+         $(".highScore2").show()
+         $(".highScore3").show()
+
+         $(".scoreboardPTags").hide();
+
+         var getData = localStorage.getItem("userresults")
+         var dataParsed = JSON.parse(getData)
+         console.log(dataParsed)
+
+         dataParsed.sort(function(a, b) {
+             return b[1] - a[1];
+         });
+
+
+         $(".highScore1").text("User: " + dataParsed[0][0] + " Scored: " + dataParsed[0][1])
+         $(".highScore2").text("User: " + dataParsed[1][0] + " Scored: " + dataParsed[1][1])
+         $(".highScore3").text("User: " + dataParsed[2][0] + " Scored: " + dataParsed[2][1])
+
+
+
+         $(".highScore1").show()
+         $(".highScore2").show()
+         $(".highScore3").show()
+         $("h1").text("High Scores!");
+         $("h1").css("text-align", "center");
+         $(".userhighscore").remove()
+         $(".userInitials").remove()
+         $(".playAgain").remove()
+         $("#startBtn").hide()
+         $(".percentRight").remove()
+         $(".userInitials").remove()
+         $(".label").remove()
+         $(".submitBtn").remove()
+         $(".userAnswer").remove()
+         $(".answerCheck").hide()
+         $(".welcome-p").hide()
+         $(".welcome-p2").hide()
+
+         $("h1").text("High Scores!");
+         $("h1").css("text-align", "center");
+
+         stopTimer()
+
+         var playAgain = $("<button>");
+         playAgain.addClass("playAgain btn");
+         playAgain.text("Play Again!");
+         $("main").append(playAgain);
+     }
+
+
+
+
+
+
+
 
      function restart() {
 
