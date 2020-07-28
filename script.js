@@ -165,7 +165,7 @@
          allUsersArray.push(userScoresArray)
          localStorage.setItem("userresults", JSON.stringify(allUsersArray));
 
-
+         scoreBoard()
          $(".highScore1").show()
          $(".highScore2").show()
          $(".highScore3").show()
@@ -187,7 +187,6 @@
          $("h1").text("High Scores!");
          $("h1").css("text-align", "center");
 
-         scoreBoard()
          stopTimer()
 
          var playAgain = $("<button>");
@@ -237,9 +236,9 @@
          });
 
 
-         $(".highScore1").text("user: " + dataParsed[0][0] + " Scored: " + dataParsed[0][1])
-         $(".highScore2").text("user: " + dataParsed[1][0] + " Scored: " + dataParsed[1][1])
-         $(".highScore3").text("user: " + dataParsed[2][0] + " Scored: " + dataParsed[2][1])
+         $(".highScore1").text("User: " + dataParsed[0][0] + " Scored: " + dataParsed[0][1])
+         $(".highScore2").text("User: " + dataParsed[1][0] + " Scored: " + dataParsed[1][1])
+         $(".highScore3").text("User: " + dataParsed[2][0] + " Scored: " + dataParsed[2][1])
 
      }
 
