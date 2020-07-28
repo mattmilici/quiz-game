@@ -166,7 +166,9 @@
          localStorage.setItem("userresults", JSON.stringify(allUsersArray));
 
 
-
+         $(".highScore1").show()
+         $(".highScore2").show()
+         $(".highScore3").show()
          $("h1").text("High Scores!");
          $("h1").css("text-align", "center");
          $(".userhighscore").remove()
@@ -197,6 +199,10 @@
      }
 
      function restart() {
+
+         $(".highScore1").hide()
+         $(".highScore2").hide()
+         $(".highScore3").hide()
          $(".playAgain").remove()
          $(".userhighscore").remove()
          $("h1").text("Test your Javascript Knowledge!");
@@ -215,6 +221,11 @@
 
 
      function scoreBoard() {
+
+         $(".highScore1").show()
+         $(".highScore2").show()
+         $(".highScore3").show()
+
          $(".scoreboardPTags").hide()
 
          var getData = localStorage.getItem("userresults")
@@ -225,12 +236,11 @@
              return b[1] - a[1];
          });
 
-         for (let r = 0; r < dataParsed.length; r++) {
-             var pHeader = $("<p>")
-             pHeader.addClass("scoreboardPTags")
-             pHeader.text("user: " + dataParsed[r][0] + " Scored: " + dataParsed[r][1])
-             $("main").append(pHeader)
-         }
+
+         $(".highScore1").text("user: " + dataParsed[0][0] + " Scored: " + dataParsed[0][1])
+         $(".highScore2").text("user: " + dataParsed[1][0] + " Scored: " + dataParsed[1][1])
+         $(".highScore3").text("user: " + dataParsed[2][0] + " Scored: " + dataParsed[2][1])
+
      }
 
  });
