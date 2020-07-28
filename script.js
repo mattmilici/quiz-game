@@ -153,45 +153,16 @@
          clearTimeout(timeFunc);
      }
 
-
-     var allUsersArray = JSON.parse(localStorage.getItem('userresults')) || [];
-     var counter = 0
-
      function submitButtonPressed() {
 
 
-         var userScoresArray = [];
-         var str = $("input").val();
-
-
-         userScoresArray.push(str)
-         userScoresArray.push(scoreTracker)
-         allUsersArray.push(userScoresArray)
-
-
-
-         localStorage.setItem("userresults", JSON.stringify(allUsersArray));
-         counter = counter + 1;
+         parseAllData()
 
          $(".highScore1").show()
          $(".highScore2").show()
          $(".highScore3").show()
 
          $(".scoreboardPTags").hide();
-
-         var getData = localStorage.getItem("userresults")
-         var dataParsed = JSON.parse(getData)
-         console.log(dataParsed)
-
-         dataParsed.sort(function(a, b) {
-             return b[1] - a[1];
-         });
-
-
-         $(".highScore1").text("User: " + dataParsed[0][0] + " Scored: " + dataParsed[0][1])
-         $(".highScore2").text("User: " + dataParsed[1][0] + " Scored: " + dataParsed[1][1])
-         $(".highScore3").text("User: " + dataParsed[2][0] + " Scored: " + dataParsed[2][1])
-
 
 
          $(".highScore1").show()
@@ -221,6 +192,54 @@
          playAgain.addClass("playAgain btn");
          playAgain.text("Play Again!");
          $("main").append(playAgain);
+     }
+
+
+
+     var allUsersArray = JSON.parse(localStorage.getItem('userresults')) || [];
+
+
+     function parseAllData() {
+         var userScoresArray = [];
+         var str = $("input").val();
+
+
+         if (str.length !== 0) {
+             userScoresArray.push(str)
+             userScoresArray.push(scoreTracker)
+
+             allUsersArray.push(userScoresArray)
+
+             allUsersArray.sort(function(a, b) {
+                 return b[1] - a[1];
+             });
+
+             localStorage.setItem("userresults", JSON.stringify(allUsersArray));
+
+             var getData = localStorage.getItem("userresults")
+             var parsedData = JSON.parse(getData)
+
+
+             console.log(parsedData)
+
+             if (1 > parsedData.length) {
+                 $(".highScore1").text("")
+             } else {
+                 $(".highScore1").text("User: " + parsedData[0][0] + " Scored: " + parsedData[0][1])
+             }
+             if (2 > parsedData.length) {
+                 $(".highScore2").text("")
+             } else {
+                 $(".highScore2").text("User: " + parsedData[1][0] + " Scored: " + parsedData[1][1])
+             }
+             if (3 > parsedData.length) {
+                 $(".highScore3").text("")
+             } else {
+                 $(".highScore3").text("User: " + parsedData[2][0] + " Scored: " + parsedData[2][1])
+             }
+
+         }
+
      }
 
 
@@ -234,21 +253,6 @@
 
          $(".scoreboardPTags").hide();
 
-         var getData = localStorage.getItem("userresults")
-         var dataParsed = JSON.parse(getData)
-         console.log(dataParsed)
-
-         dataParsed.sort(function(a, b) {
-             return b[1] - a[1];
-         });
-
-
-         $(".highScore1").text("User: " + dataParsed[0][0] + " Scored: " + dataParsed[0][1])
-         $(".highScore2").text("User: " + dataParsed[1][0] + " Scored: " + dataParsed[1][1])
-         $(".highScore3").text("User: " + dataParsed[2][0] + " Scored: " + dataParsed[2][1])
-
-
-
          $(".highScore1").show()
          $(".highScore2").show()
          $(".highScore3").show()
@@ -277,12 +281,6 @@
          playAgain.text("Play Again!");
          $("main").append(playAgain);
      }
-
-
-
-
-
-
 
 
      function restart() {
@@ -306,28 +304,5 @@
 
      }
 
-
-     function scoreBoard() {
-
-         $(".highScore1").show()
-         $(".highScore2").show()
-         $(".highScore3").show()
-
-         $(".scoreboardPTags").hide()
-
-         var getData = localStorage.getItem("userresults")
-         var dataParsed = JSON.parse(getData)
-         console.log(dataParsed)
-
-         dataParsed.sort(function(a, b) {
-             return b[1] - a[1];
-         });
-
-
-         $(".highScore1").text("User: " + dataParsed[0][0] + " Scored: " + dataParsed[0][1])
-         $(".highScore2").text("User: " + dataParsed[1][0] + " Scored: " + dataParsed[1][1])
-         $(".highScore3").text("User: " + dataParsed[2][0] + " Scored: " + dataParsed[2][1])
-
-     }
 
  });
