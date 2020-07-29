@@ -198,6 +198,9 @@ $(document).ready(function() {
 
             localStorage.setItem("userresults", JSON.stringify(allUsersArray));
 
+            getData = localStorage.getItem("userresults");
+            parsedData = JSON.parse(getData);
+
             console.log(parsedData);
 
             if (1 > parsedData.length) {
