@@ -192,6 +192,8 @@
          playAgain.addClass("playAgain btn");
          playAgain.text("Play Again!");
          $("main").append(playAgain);
+
+         $('#timerCount').text("60")
      }
 
 
@@ -280,6 +282,8 @@
          playAgain.addClass("playAgain btn");
          playAgain.text("Play Again!");
          $("main").append(playAgain);
+
+         $('#timerCount').text("60")
      }
 
 
