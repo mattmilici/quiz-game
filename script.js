@@ -56,6 +56,8 @@
 
          } else {
              $(".answerCheck").text("incorrect!");
+             timePassed = timePassed + 4
+
          }
 
          if (questionPlusAnswer < (quizquestions.length - 1)) {
@@ -115,21 +117,17 @@
              $("main").append(pTag);
          }
      };
-
+     var timePassed = 0;
      // ---------------------------- This is the function that starts the timer----------------------------
      function startTimer() {
          var startingTime = 60
-         var timePassed = 0;
+
          // Run myfunc every second
          timeFunc = setInterval(function() {
 
                  var timeRemaing = startingTime - timePassed;
-
                  $('#timerCount').text(timeRemaing)
-
-
-                 timePassed = timePassed + 1
-
+                 timePassed++
 
                  // Display the message when countdown is over
                  if (timeRemaing < 0) {
