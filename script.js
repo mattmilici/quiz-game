@@ -6,6 +6,7 @@
      var currentQuestion;
      var questionPlusAnswer = -1;
      var timeFunc;
+     var allUsersArray = JSON.parse(localStorage.getItem('userresults')) || [];
      let quizquestions = [
          [
              ["Javascript can update and change both HTML and CSS"],
@@ -34,12 +35,11 @@
          ],
      ];
 
-     //Starting button on home screen. This kicks off the timer and shows the first quiz question
+
+     //buttons that trigger events 
      $("#startBtn").on("click", startQuiz)
      $("#startBtn").on("click", startTimer)
      $(".scores-btn").on("click", submitButtonPressed2)
-
-     //every time an answer is selected you will be taken to the next screen 
      $(document).on("click", ".userAnswer", nextQuestion)
      $(document).on("click", ".submitBtn", submitButtonPressed)
      $(document).on("click", ".playAgain", restart)
@@ -54,10 +54,8 @@
              scoreTracker = scoreTracker + 1
              $(".answerCheck").text("correct!")
 
-
          } else {
              $(".answerCheck").text("incorrect!");
-
          }
 
          if (questionPlusAnswer < (quizquestions.length - 1)) {
@@ -69,10 +67,8 @@
      }
 
 
-
+     // ---------------------------- This function takes you to the final Page where you see your final score ----------------------------
      function finalScorePage() {
-
-
          $(".userAnswer").remove();
          $(".answerCheck").hide();
          $("h1").text("You got  " + scoreTracker + " out of " + quizquestions.length + " correct");
@@ -100,13 +96,12 @@
 
      }
 
-
+     // ---------------------------- This is the function that runs when you start your quiz. It will create the quiz questions----------------------------
      function startQuiz() {
          $(".scoreboardPTags").hide()
          $(".welcome-p").hide();
          $(".welcome-p2").hide();
          $("#startBtn").hide();
-
 
          questionPlusAnswer += 1
          currentQuestion = quizquestions[questionPlusAnswer]
@@ -119,11 +114,9 @@
              pTag.text(currentQuestion[1][i]);
              $("main").append(pTag);
          }
-
-
      };
 
-
+     // ---------------------------- This is the function that starts the timer----------------------------
      function startTimer() {
          var startingTime = 60
          var timePassed = 0;
@@ -149,22 +142,20 @@
              1000);
      }
 
+     // ---------------------------- This is the function that stops the timer---------------------------
      function stopTimer() {
          clearTimeout(timeFunc);
      }
 
+
+     // ---------------------------- This is the function that stops the timer---------------------------
      function submitButtonPressed() {
-
-
          parseAllData()
 
          $(".highScore1").show()
          $(".highScore2").show()
          $(".highScore3").show()
-
          $(".scoreboardPTags").hide();
-
-
          $(".highScore1").show()
          $(".highScore2").show()
          $(".highScore3").show()
@@ -192,35 +183,24 @@
          playAgain.addClass("playAgain btn");
          playAgain.text("Play Again!");
          $("main").append(playAgain);
-
-         $('#timerCount').text("60")
      }
 
-
-
-     var allUsersArray = JSON.parse(localStorage.getItem('userresults')) || [];
-
-
+     // ---------------------------- This is the function that stops the timer---------------------------
      function parseAllData() {
          var userScoresArray = [];
          var str = $("input").val();
-
+         var getData = localStorage.getItem("userresults")
+         var parsedData = JSON.parse(getData)
 
          if (str.length !== 0) {
              userScoresArray.push(str)
              userScoresArray.push(scoreTracker)
-
              allUsersArray.push(userScoresArray)
-
              allUsersArray.sort(function(a, b) {
                  return b[1] - a[1];
              });
 
              localStorage.setItem("userresults", JSON.stringify(allUsersArray));
-
-             var getData = localStorage.getItem("userresults")
-             var parsedData = JSON.parse(getData)
-
 
              console.log(parsedData)
 
@@ -244,17 +224,12 @@
 
      }
 
-
-
+     // ---------------------------- This is the function that runs when the user selects view high score---------------------------
      function submitButtonPressed2() {
-
-
          $(".highScore1").show()
          $(".highScore2").show()
          $(".highScore3").show()
-
          $(".scoreboardPTags").hide();
-
          $(".highScore1").show()
          $(".highScore2").show()
          $(".highScore3").show()
@@ -282,11 +257,9 @@
          playAgain.addClass("playAgain btn");
          playAgain.text("Play Again!");
          $("main").append(playAgain);
-
-         $('#timerCount').text("60")
      }
 
-
+     // ---------------------------- This is the function that restarts your quiz--------------------------
      function restart() {
 
          $(".highScore1").hide()
@@ -305,7 +278,6 @@
          startingTime = 60
          questionPlusAnswer = -1
          scoreTracker = 0
-
      }
 
 
